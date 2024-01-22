@@ -1,0 +1,8 @@
+<h2>Check out our heroes!</h2>
+<div class="heroes-menu">
+  @for(hero of heroes|async; track hero.id) {
+    <span>
+    {{hero.name}}
+    </span>
+  }
+</div>

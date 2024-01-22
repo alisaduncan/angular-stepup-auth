@@ -1,0 +1,33 @@
+.heroes-menu {
+  padding: 0;
+  margin: auto;
+  max-width: 1000px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
+
+  span {
+    background-color: #3f525c;
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    min-width: 70px;
+    margin: .5rem auto;
+  }
+  
+  @media (min-width: 600px) {
+    span {
+      width: 18%;
+    }
+  }
+}
+
+

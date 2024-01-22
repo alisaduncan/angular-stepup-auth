@@ -1,0 +1,19 @@
+.page-title {
+   text-align: center;
+   font-size: 3rem;
+   color: #3652AD;
+}
+
+.nav-menu {
+   margin: 2rem;
+
+   ul {
+      list-style: none;
+      display: flex;
+      justify-content: end;
+
+      li+li {
+         padding-left: 1rem;
+      }
+   } 
+}
