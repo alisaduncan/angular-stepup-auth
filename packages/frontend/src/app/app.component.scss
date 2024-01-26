@@ -17,3 +17,14 @@
       }
    } 
 }
+
+.auth-link {
+      padding: 0.5rem;
+      cursor: pointer;
+      border: 1px solid lightslategray;
+      border-radius: 4px;
+}
+
+.auth-link:hover {
+   background-color: lightsteelblue;
+}

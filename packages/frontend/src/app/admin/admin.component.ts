@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [],
-  templateUrl: './admin.component.html',
+  template: `
+    <h2>Admin Dashboard</h2>
+    <p>Manage your crises and heroes here! These actions are extra sensitive.</p>
+  `,
   styleUrls: ['./admin.component.scss']
 })
 export class AdminDashboardComponent { }

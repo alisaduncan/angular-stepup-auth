@@ -1,8 +1,4 @@
-// TODO: Feature Componetized like CrisisCenter
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject } from '@angular/core';
 
 import { HeroService } from '../hero.service';
 import { AsyncPipe } from '@angular/common';
@@ -11,7 +7,19 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-hero-list',
   standalone: true,
   imports: [AsyncPipe],
-  templateUrl: './hero-list.component.html',
+  template: `
+    <h2>Heroes</h2>
+
+    <p>Authentication required for see the list of heroes with their id information</p>
+
+    <ul class="heroes">
+      @for (hero of heroes$ | async; track hero.id) {
+        <li class="hero">
+          <span class="badge">{{ hero.id }}</span>{{ hero.name }}
+        </li>
+      }
+    </ul>
+  `,
   styleUrls: ['./hero-list.component.scss']
 })
 export class HeroListComponent {
