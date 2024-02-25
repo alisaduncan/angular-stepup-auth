@@ -23,15 +23,10 @@ export class HeroService {
   }
 
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>('/api/heroes').pipe(
-      map(res => res || []),
-      catchError(error => {
-        if (error['name'] === INSUFFICIENT_AUTH) {
-          this.authService.login(error['message'], this.router.routerState.snapshot.url)
-        }
+    const currentUrl = this.router.routerState.snapshot.url;
 
-        return throwError(() => error)
-      })
+    return this.http.get<Hero[]>('/api/heroes').pipe(
+      map(res => res || [])
     );
   }
 }

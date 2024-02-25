@@ -14,7 +14,7 @@ function configInitializer(httpBackend: HttpBackend, configService: OktaAuthConf
   new HttpClient(httpBackend)
   .get('https://stepup-auth-config-2fe0cebff4a1.herokuapp.com/config')
   .pipe(
-    tap((authConfig: any) => configService.setConfig({oktaAuth: new OktaAuth({...authConfig, redirectUri: `${window.location.origin}/login/callback`})})),
+    tap((authConfig: any) => configService.setConfig({oktaAuth: new OktaAuth({...authConfig, redirectUri: `${window.location.origin}/login/callback`, scopes: ['openid', 'profile', 'offline_access']})})),
     take(1)
   );
 }
@@ -26,8 +26,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(routes),
     provideHttpClient(withInterceptors([
-      authInterceptor,
-      stepupInterceptor
+      authInterceptor
     ])),
     { provide: APP_INITIALIZER, useFactory: configInitializer, deps: [HttpBackend, OktaAuthConfigService], multi: true }
   ]

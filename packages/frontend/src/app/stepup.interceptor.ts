@@ -9,7 +9,7 @@ interface StepupHttpErrorResponse {
   max_age?: string;
 }
 
-interface StepupError {
+export interface StepupError {
   name: string;
   message: string;
 }
@@ -24,19 +24,13 @@ const formatStepupErrorResponse = (httpError: HttpErrorResponse): StepupHttpErro
 
 const handleError = (httpError: HttpErrorResponse) => {
   const allowedOrigins = ['/api'];
-  if (!allowedOrigins.find(origin => httpError.url?.includes(origin))) {
+  if (httpError.status !== HttpStatusCode.Unauthorized || !allowedOrigins.find(origin => httpError.url?.includes(origin))) {
     return throwError(() => httpError);
   }
 
   let returnError: HttpErrorResponse|StepupError = httpError;
 
-  if (httpError.status === HttpStatusCode.Unauthorized && httpError.headers.has(AUTH_HEADER)) {
-    const response = formatStepupErrorResponse(httpError);
-
-    if (response.error === INSUFFICIENT_AUTH) {
-      returnError = {name: response.error, message: response.acr_values };
-    }
-  }
+  // add code
 
   return throwError(() => returnError)
 };
