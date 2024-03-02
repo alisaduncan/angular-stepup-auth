@@ -29,8 +29,14 @@ const handleError = (httpError: HttpErrorResponse) => {
   }
 
   let returnError: HttpErrorResponse|StepupError = httpError;
+  if (!httpError.headers.has(AUTH_HEADER)) {
+    return throwError(() => returnError);
+  }
 
-  // add code
+  const stepUpError = formatStepupErrorResponse(httpError);
+  if (stepUpError.error === INSUFFICIENT_AUTH) {
+    returnError = {name: stepUpError.error, message: stepUpError.acr_values};
+  }
 
   return throwError(() => returnError)
 };
