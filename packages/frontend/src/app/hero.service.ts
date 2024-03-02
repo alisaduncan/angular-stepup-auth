@@ -26,7 +26,14 @@ export class HeroService {
     const currentUrl = this.router.routerState.snapshot.url;
 
     return this.http.get<Hero[]>('/api/heroes').pipe(
-      map(res => res || [])
+      map(res => res || []),
+      catchError(error => {
+        if (error['name'] === INSUFFICIENT_AUTH) {
+          this.authService.login(error['message'], currentUrl);
+        }
+
+        return throwError(() => error);
+      })
     );
   }
 }

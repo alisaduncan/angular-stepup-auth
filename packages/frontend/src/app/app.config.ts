@@ -26,7 +26,8 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(routes),
     provideHttpClient(withInterceptors([
-      authInterceptor
+      authInterceptor,
+      stepupInterceptor
     ])),
     { provide: APP_INITIALIZER, useFactory: configInitializer, deps: [HttpBackend, OktaAuthConfigService], multi: true }
   ]
