@@ -6,7 +6,9 @@ export interface StepupAuthChallengeRequiredOptions {
   maxAge?: number;
 }
 
-export function StepupMiddlewareCreator(options: StepupAuthChallengeRequiredOptions) {
+export function StepupMiddlewareCreator(
+  options: StepupAuthChallengeRequiredOptions,
+) {
   @Injectable()
   class StepupMiddleware implements NestMiddleware {
     authService: AuthService;
@@ -25,7 +27,9 @@ export function StepupMiddlewareCreator(options: StepupAuthChallengeRequiredOpti
       const errorCode = `Bearer error="insufficient_user_authentication",error_description="A different authentication level is required",acr_values="${acrValue}"`;
       const header = 'WWW-Authenticate';
 
-      const acr = await this.authService.verifyAccessTokenAndGetAcrClaim(accessToken);
+      const acr = await this.authService.verifyAccessTokenAndGetAcrClaim(
+        accessToken,
+      );
       if (acr === '' || acr !== acrValue) {
         res.setHeader(header, errorCode);
         return res.status(401).send();
@@ -37,4 +41,3 @@ export function StepupMiddlewareCreator(options: StepupAuthChallengeRequiredOpti
 
   return mixin(StepupMiddleware);
 }
-

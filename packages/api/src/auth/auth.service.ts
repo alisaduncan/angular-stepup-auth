@@ -11,13 +11,18 @@ interface Config {
 export class AuthService implements OnModuleInit {
   private verifier!: OktaJwtVerifier;
 
-  constructor(private readonly httpService: HttpService) { }
+  constructor(private readonly httpService: HttpService) {}
 
   onModuleInit() {
-    this.httpService.get<Config>('https://stepup-auth-config-2fe0cebff4a1.herokuapp.com/config').pipe(
-      map(response => response.data.issuer),
-      take(1)
-    ).subscribe( issuer => this.verifier = new OktaJwtVerifier({issuer}));
+    this.httpService
+      .get<Config>(
+        'https://stepup-auth-config-2fe0cebff4a1.herokuapp.com/config',
+      )
+      .pipe(
+        map((response) => response.data.issuer),
+        take(1),
+      )
+      .subscribe((issuer) => (this.verifier = new OktaJwtVerifier({ issuer })));
   }
 
   public getAccessTokenFromRequest(req: any): string {
@@ -46,7 +51,10 @@ export class AuthService implements OnModuleInit {
   }
 
   public async verifyAccessTokenAndGetAcrClaim(accessToken): Promise<string> {
-    const jwt = await this.verifier.verifyAccessToken(accessToken, 'api://default');
-    return jwt.claims['acr'] as string ?? '';
+    const jwt = await this.verifier.verifyAccessToken(
+      accessToken,
+      'api://default',
+    );
+    return (jwt.claims['acr'] as string) ?? '';
   }
 }
