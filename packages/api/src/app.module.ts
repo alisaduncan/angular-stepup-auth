@@ -8,7 +8,6 @@ import { AuthService } from './auth/auth.service';
 import { StepupMiddlewareCreator } from './auth/stepup.middleware';
 import { FeaturedController } from './featured.controller';
 
-
 @Module({
   imports: [HttpModule],
   controllers: [AppController, HeroController, FeaturedController],
@@ -17,9 +16,10 @@ import { FeaturedController } from './featured.controller';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-    .apply(
-      AuthMiddleware,
-      // StepupMiddlewareCreator({acrValue: 'urn:okta:loa:2fa:any'})
-    ).forRoutes('heroes');
+      .apply(
+        AuthMiddleware,
+        // StepupMiddlewareCreator({acrValue: 'urn:okta:loa:2fa:any'})
+      )
+      .forRoutes('heroes');
   }
 }
