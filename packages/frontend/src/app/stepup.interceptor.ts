@@ -33,9 +33,12 @@ const handleError = (httpError: HttpErrorResponse) => {
     return throwError(() => returnError);
   }
 
-  const stepUpError = formatStepupErrorResponse(httpError);
-  if (stepUpError.error === INSUFFICIENT_AUTH) {
-    returnError = {name: stepUpError.error, message: stepUpError.acr_values};
+  // verify the error is a step up authentication error
+  if (httpError.headers.get(AUTH_HEADER)?.includes(INSUFFICIENT_AUTH)) {
+
+    // use response header error values to format an error for service to handle
+    const { error, acr_values } = formatStepupErrorResponse(httpError);
+    returnError = { name: error, message: acr_values };
   }
 
   return throwError(() => returnError)
