@@ -30,7 +30,13 @@ const handleError = (httpError: HttpErrorResponse) => {
 
   let returnError: HttpErrorResponse|StepupError = httpError;
 
-  // add code
+  // verify the error is a step up authentication error
+  if (false) {
+
+    // use response header error values to format an error for service to handle
+    const { error, acr_values } = formatStepupErrorResponse(httpError);
+    returnError = { name: error, message: acr_values };
+  }
 
   return throwError(() => returnError)
 };
