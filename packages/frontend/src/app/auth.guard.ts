@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = (route, state, authService = inject(Auth
   return authService.isAuthenticated$;
 };
 
-export const stepupGuard: CanActivateFn = (route, state, authService = inject(AuthService)) => {
+export const stepupAuthGuard: CanActivateFn = (route, state, authService = inject(AuthService)) => {
   if (authService.getIdTokenAcrClaim() === route.data['acrReq']) return true;
 
   authService.login(route.data['acrReq'], state.url);

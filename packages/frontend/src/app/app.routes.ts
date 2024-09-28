@@ -3,14 +3,14 @@ import { HeroListComponent } from './heroes-list/hero-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin/admin.component';
 import { OktaCallbackComponent } from '@okta/okta-angular';
-import { authGuard, stepupGuard } from './auth.guard';
+import { authGuard, stepupAuthGuard } from './auth.guard';
 import { ACR_VALUES_2FA } from './auth.service';
 
 export const routes: Routes = [
     {
       path: 'admin',
       component: AdminDashboardComponent,
-      canActivate: [authGuard, stepupGuard],
+      canActivate: [authGuard, stepupAuthGuard],
       data: { acrReq: ACR_VALUES_2FA }
     },
     { path: 'heroes', component: HeroListComponent, canActivate: [authGuard] },
