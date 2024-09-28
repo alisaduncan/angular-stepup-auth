@@ -5,3 +5,8 @@ import { inject } from '@angular/core';
 export const authGuard: CanActivateFn = (route, state, authService = inject(AuthService)) => {
   return authService.isAuthenticated$;
 };
+
+export const stepupAuthGuard: CanActivateFn = (route, state, authService = inject(AuthService)) => {
+  
+  return false;
+};
